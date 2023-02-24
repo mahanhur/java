@@ -17,7 +17,7 @@ public class P88 {
 //		100 ~ 95 또는 90 ~ 85 VIP
 //		80~75 또는 60 ~ 65 GOLD
 //		나머지는 NORMAL
-		
+// 추가		
 		
 		//if elseif
 		if(sum >= 85.0 && (sum <= 90.0 || sum >= 95.0)) {
