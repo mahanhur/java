@@ -1,10 +1,9 @@
 package array;
 
-public class Hello {
+public class P102 {
 
 	public static void main(String[] args) {
-		int bb = 1000;
-		int a = 100;
+		// TODO Auto-generated method stub
 
 	}
 
