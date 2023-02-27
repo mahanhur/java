@@ -7,6 +7,7 @@ public class P99 {
 		int t = 100;
 		int eclipse = 200;
 		int server = 100;
+		int server2 = 4;
 		int eclipse2 = 3;
 		
 		for(int i=2;i<10;i++) {
