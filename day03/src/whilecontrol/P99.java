@@ -6,8 +6,8 @@ public class P99 {
 		int ttt = 200;
 		int t = 100;
 		int eclipse = 200;
-		
 		int server = 100;
+		int eclipse2 = 3;
 		
 		for(int i=2;i<10;i++) {
 			System.out.printf("%d 단 \n",i);
