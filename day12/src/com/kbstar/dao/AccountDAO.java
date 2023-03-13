@@ -10,9 +10,10 @@ import com.kbstar.frame.DAO;
 
 public class AccountDAO implements DAO<String, AccountDTO> {
 	HashMap<String, AccountDTO> db;
-
+	AccountDTO acc;
 	public AccountDAO() {
 		db = new HashMap<String, AccountDTO>();
+		acc = new AccountDTO();
 	}
 
 	@Override
@@ -63,7 +64,17 @@ public class AccountDAO implements DAO<String, AccountDTO> {
 	// Object obj = new String();
 	@Override
 	public List<AccountDTO> search(Object obj) throws Exception {
-		return null;
+		List<AccountDTO> list = new ArrayList<AccountDTO>();
+		Collection<AccountDTO> col = db.values();
+		
+		for(AccountDTO data:col) {
+			//계좌 중에서 id값이 obj와 같은 것들만 list에 담자
+			if((acc.getHolder()).equals(obj)) {
+				list.add(data);
+			}
+		}
+		return list;
 	}
+				
 
 }
