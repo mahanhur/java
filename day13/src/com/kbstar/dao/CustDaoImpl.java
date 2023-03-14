@@ -93,44 +93,81 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 
 	@Override
 	public Cust select(String k) throws Exception {
+		// 내 소스
+//		Cust cust = null;
+//		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectSql);) {
+//			pstmt.setString(1, k);
+//			ResultSet rSet = pstmt.executeQuery();
+//			rSet.next();
+//			String DB_ID = rSet.getString("id");
+//			String DB_PWD = rSet.getString("pwd");
+//			String DB_NAME = rSet.getString("name");
+//			int DB_AGE = rSet.getInt("age");
+//			cust = new Cust(DB_ID, DB_PWD, DB_NAME, DB_AGE);
+//			return cust;
+//		} catch (Exception e) {
+//			throw new Exception("dao 오류");
+//		}
 		Cust cust = null;
 		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectSql);) {
 			pstmt.setString(1, k);
-			ResultSet rSet = pstmt.executeQuery();
-			rSet.next();
-			String DB_ID = rSet.getString("id");
-			String DB_PWD = rSet.getString("pwd");
-			String DB_NAME = rSet.getString("name");
-			int DB_AGE = rSet.getInt("age");
-			cust = new Cust(DB_ID, DB_PWD, DB_NAME, DB_AGE);
-			return cust;
+			try (ResultSet rSet = pstmt.executeQuery()) {
+				rSet.next();
+				String id = rSet.getString("id");
+				String pwd = rSet.getString("pwd");
+				String name = rSet.getString("name");
+				int age = rSet.getInt("age");
+				cust = new Cust(id, pwd, name, age);
+			} catch (Exception e) {
+				throw e;
+			}
 		} catch (Exception e) {
-			throw new Exception("dao 오류");
+			throw e;
 		}
+		return cust;
 	}
 
 	@Override
 	public List<Cust> selectAll() throws Exception {
-		ArrayList<Cust> list = new ArrayList<Cust>();
-		Cust cust = null;
-		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectAllSql);) {
+//		ArrayList<Cust> list = new ArrayList<Cust>();
+//		Cust cust = null;
+//		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectAllSql);) {
+//			try (ResultSet rSet = pstmt.executeQuery();) {
+//
+//				while (rSet.next()) {
+//					String DB_ID = rSet.getString("id");
+//					String DB_PWD = rSet.getString("pwd");
+//					String DB_NAME = rSet.getString("name");
+//					int DB_AGE = rSet.getInt("age");
+//					cust = new Cust(DB_ID, DB_PWD, DB_NAME, DB_AGE);
+//					list.add(cust);
+//				}
+//				return list;
+//			} catch (Exception e) {
+//				throw new Exception("dao 오류");
+//			}
+//		} catch (Exception e) {
+//			throw new Exception("dao 오류");
+//		}
+		List<Cust> list = null;
+		try(Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectAllSql);) {
 			try (ResultSet rSet = pstmt.executeQuery();) {
-
-				while (rSet.next()) {
-					String DB_ID = rSet.getString("id");
-					String DB_PWD = rSet.getString("pwd");
-					String DB_NAME = rSet.getString("name");
-					int DB_AGE = rSet.getInt("age");
-					cust = new Cust(DB_ID, DB_PWD, DB_NAME, DB_AGE);
+				while(rSet.next()) {
+					Cust cust = null;
+					String id = rSet.getString("id");
+					String pwd = rSet.getString("pwd");
+					String name = rSet.getString("name");
+					int age = rSet.getInt("age");
+					cust = new Cust(id, pwd, name, age);
 					list.add(cust);
 				}
-				return list;
-			} catch (Exception e) {
-				throw new Exception("dao 오류");
+			} catch(Exception e) {
+				throw e;
 			}
-		} catch (Exception e) {
-			throw new Exception("dao 오류");
+		} catch(Exception e) {
+			throw e;
 		}
+		return list;
 	}
 
 	@Override

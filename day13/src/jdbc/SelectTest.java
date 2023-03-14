@@ -29,7 +29,7 @@ public class SelectTest {
 		// SQL문 전송
 
 		try(Connection con = DriverManager.getConnection(url, id, pwd); PreparedStatement pstmt = con.prepareStatement(selectSql);) { 
-			pstmt.setString(1, "id29");
+			pstmt.setString(1, "id99");
 			try(ResultSet rSet = pstmt.executeQuery()) {
 				rSet.next(); // ResultSet은 한칸 위의 공간을 가르키고 있으므로 반드시 next로 한 칸 내려줘야함
 				String db_id = rSet.getString("id"); //()안에는 index+1을 가르키거나 실제 컬럼명을 써주면 됨

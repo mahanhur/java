@@ -3,6 +3,7 @@ package com.kbstar.service;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.SQLRecoverableException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.kbstar.dao.CustDaoImpl;
@@ -38,7 +39,7 @@ public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
 	public void modify(Cust v) throws Exception {
 		try {
 			dao.update(v);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			if (e instanceof SQLIntegrityConstraintViolationException) {
 				throw new Exception("시스템장애");
 			} else {
@@ -52,7 +53,7 @@ public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
 		try {
 			dao.delete(k);
 		} catch (Exception e) {
-			if(e instanceof SQLRecoverableException) {
+			if (e instanceof SQLRecoverableException) {
 				throw new Exception("시스템 장애");
 			} else {
 				throw new Exception("해당 ID가 존재하지 않습니다.");
@@ -62,26 +63,47 @@ public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
 
 	@Override
 	public Cust get(String k) throws Exception {
+		// 내 소스
+//		Cust cust = null;
+//		try {
+//			cust = dao.select(k);
+//			System.out.println("id는 "+k+ ", name은 " + cust.getName() + ", age는 " + cust.getAge() + "입니다.");
+//			
+//		} catch (Exception e) {
+//			throw e;
+//		}		
+//		return cust;
 		Cust cust = null;
 		try {
 			cust = dao.select(k);
-			System.out.println("id는 "+k+ ", name은 " + cust.getName() + ", age는 " + cust.getAge() + "입니다.");
-			
 		} catch (Exception e) {
-			throw new Exception("해당 ID가 존재하지 않습니다.");
-		}		
+			if (e instanceof SQLRecoverableException) {
+				throw new Exception("시스템 장애입니다.");
+			} else {
+				throw new Exception("ID가 존재하지 않습니다.");
+			}
+		}
 		return cust;
 	}
 
 	@Override
 	public List<Cust> get() throws Exception {
+		 //내 소스
+//		List<Cust> list = null;
+//		try {
+//			list = dao.selectAll();
+//			return list;
+//		} catch (Exception e) {
+//			throw new Exception("오류가 뭐야");
+//		}
 		List<Cust> list = null;
 		try {
 			list = dao.selectAll();
-			return list;
-		} catch (Exception e) {
-			throw new Exception("오류가 뭐야");
+		} catch(Exception e) {
+			if (e instanceof SQLRecoverableException) {
+				throw new Exception("시스템 장애입니다.");
+			}
 		}
+		return list;
 	}
-
 }
