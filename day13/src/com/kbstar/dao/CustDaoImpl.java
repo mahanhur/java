@@ -28,20 +28,20 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 	}
 
 	// 커넥션
-	public static Connection getConnection() throws Exception {
-		Connection con = null;
-
-		Properties props = new Properties();
-		String fileName = "db_info.txt";
-		FileInputStream in = new FileInputStream(fileName);
-		props.load(in);
-
-		String id = props.getProperty("DB_ID");
-		String pwd = props.getProperty("DB_PWD");
-		String url = props.getProperty("DB_URL");
-		con = DriverManager.getConnection(url, id, pwd);
-		return con;
-	}
+//	public static Connection getConnection() throws Exception {
+//		Connection con = null;
+//
+//		Properties props = new Properties();
+//		String fileName = "db_info.txt";
+//		FileInputStream in = new FileInputStream(fileName);
+//		props.load(in);
+//
+//		String id = props.getProperty("DB_ID");
+//		String pwd = props.getProperty("DB_PWD");
+//		String url = props.getProperty("DB_URL");
+//		con = DriverManager.getConnection(url, id, pwd);
+//		return con;
+//	}
 
 	@Override
 	public void insert(Cust v) throws Exception {
