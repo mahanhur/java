@@ -3,7 +3,6 @@ package com.kbstar.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -117,7 +116,28 @@ public class CartDaoImpl implements DAO<String, String, Cart> {
 	}
 	@Override
 	public List<Cart> search(String k) throws Exception {
-		return null;
+		List<Cart> list = new ArrayList<Cart>();
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.myCartSelectAllSql);) {
+			pstmt.setString(1, k);
+			try (ResultSet rSet = pstmt.executeQuery();) {
+				while (rSet.next()) {
+					Cart cart = null;
+					String id = rSet.getString("id");
+					String user_id = rSet.getString("user_id");
+					String item_id = rSet.getString("item_id");
+					int cnt = rSet.getInt("cnt");
+					Date regdate = rSet.getDate("regdate");
+
+					cart = new Cart(id, user_id, item_id, cnt, regdate);
+					list.add(cart);
+				}
+			} catch (Exception e) {
+				throw e;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
 	}
 
 }
